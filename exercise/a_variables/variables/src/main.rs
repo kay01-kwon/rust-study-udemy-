@@ -16,9 +16,15 @@ fn main() {
 
     // Extra challenges
 
-    let (missiles_, ready_)= 
+    let (mut missiles_, ready_): (i32, i32) = 
     (STARTING_MISSILES, READY_AMOUNT);
 
-    println!("{}",missiles_-ready_);
+    println!("Firing {} of my {} missiles..."
+    ,ready_, missiles_);
+    
+    missiles_ = missiles_ - ready_;
+
+    println!("{} misiles left",missiles_);
+
 
 }
