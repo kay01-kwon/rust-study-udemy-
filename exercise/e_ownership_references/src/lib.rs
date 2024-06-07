@@ -6,10 +6,10 @@ pub fn inspect(s: &String)
 
     if check == true
     {
-        println!("Plural");
+        println!("{} is plural",s);
     }
     else{
-        println!("Singular");
+        println!("{} is singular",s);
     }   
 }
 
@@ -18,25 +18,16 @@ pub fn change(s: &mut String)
     let check:bool;
     check = s.ends_with("s");
 
-    if check == true
-    {
-
-    }
-    else
+    if check == false
     {
         s.push_str("s");
     }
+
 }
 
 pub fn eat(s:String) -> bool
 {
-    if s.starts_with("b") && s.contains("a")
-    {
-        true
-    }
-    else{
-        false
-    }
+    s.starts_with("b") && s.contains("a")
 }
 
 pub fn bedazzle(s:&mut String) -> &mut String
