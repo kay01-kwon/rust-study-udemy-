@@ -27,3 +27,14 @@ pub fn change(s: &mut String)
         s.push_str("s");
     }
 }
+
+pub fn eat(s:String) -> bool
+{
+    if s.starts_with("b") && s.contains("a")
+    {
+        true
+    }
+    else{
+        false
+    }
+}
