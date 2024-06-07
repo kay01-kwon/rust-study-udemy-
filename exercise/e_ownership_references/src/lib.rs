@@ -38,3 +38,9 @@ pub fn eat(s:String) -> bool
         false
     }
 }
+
+pub fn bedazzle(s:&mut String) -> &mut String
+{
+    *s = String::from("sparkly");
+    s
+}
