@@ -5,27 +5,29 @@
 // `cargo run` without any errors.
 //
 //  trait Bite...
-trait Bite {
-    fn bite(self:&mut Self);    
-}
+// trait Bite {
+//     fn bite(self:&mut Self);    
+// }
 
 // 2. Now create a struct named Grapes with a field that tracks how many grapes are left.  If you
 // need a hint, look at how it was done for Carrot at the bottom of this file (you should probably
 // use a different field, though).
 //
-#[derive(Debug)] // include this line right before your struct definition
-struct Grapes{
-    amount_left:i32,
-}
+// #[derive(Debug)] // include this line right before your struct definition
+// struct Grapes{
+//     amount_left:i32,
+// }
 
 // 3. Implement Bite for Grapes.  When you bite a Grapes, subtract 1 from how many grapes are left.
 // If you need a hint, look at how it was done for Carrot at the bottom of this file.
 //
-impl Bite for Grapes{
-    fn bite(self:&mut Self) {
-        self.amount_left -= 1;
-    }
-}
+// impl Bite for Grapes{
+//     fn bite(self:&mut Self) {
+//         self.amount_left -= 1;
+//     }
+// }
+mod modules;
+use crate::modules::{Carrot, Grapes, Bite};
 
 
 fn main() {
@@ -52,14 +54,14 @@ fn main() {
     //println!("Bunny nibbles for awhile: {:?}", carrot);
 }
 
-#[derive(Debug)] // This enables using the debugging format string "{:?}"
-struct Carrot {
-    percent_left: f32,
-}
+// #[derive(Debug)] // This enables using the debugging format string "{:?}"
+// struct Carrot {
+//     percent_left: f32,
+// }
 
-impl Bite for Carrot {
-    fn bite(self: &mut Self) {
-        // Eat 20% of the remaining carrot. It may take awhile to eat it all...
-        self.percent_left *= 0.8;
-    }
-}
+// impl Bite for Carrot {
+//     fn bite(self: &mut Self) {
+//         // Eat 20% of the remaining carrot. It may take awhile to eat it all...
+//         self.percent_left *= 0.8;
+//     }
+// }
