@@ -1,13 +1,22 @@
 // Silence some warnings that could distract from the exercise
 #![allow(unused_variables, unused_mut, dead_code)]
 
+use core::f64;
+use std::cmp::Ordering;
+
+use rand::seq;
+
 // Someone is shooting arrows at a target.  We need to classify the shots.
 //
 // 1a. Create an enum called `Shot` with variants:
 // - `Bullseye`
 // - `Hit`, containing the distance from the center (an f64)
 // - `Miss`
-//
+enum Shot{
+    Bullseye,
+    Hit(f64),
+    Miss,
+}
 // You will need to complete 1b as well before you will be able to run this program successfully.
 
 impl Shot {
@@ -18,6 +27,18 @@ impl Shot {
         // - return 2 points if `self` is a `Shot::Hit(x)` where x < 3.0
         // - return 1 point if `self` is a `Shot::Hit(x)` where x >= 3.0
         // - return 0 points if `self` is a Miss
+        match self {
+            Self::Bullseye => 5,
+            Self::Hit(num)=> {
+                if num < 3.0{
+                    2
+                } else
+                {
+                    1
+                }
+            },
+            Self::Miss => 0,
+        }
     }
 }
 
@@ -34,6 +55,18 @@ fn main() {
     //      - Less than 1.0 -- `Shot::Bullseye`
     //      - Between 1.0 and 5.0 -- `Shot::Hit(value)`
     //      - Greater than 5.0 -- `Shot::Miss`
+
+    for i in 0..5{
+        arrow_coords[i].print_description();
+        let temp_dist = arrow_coords[i].distance_from_center();
+        shots.push(
+            match temp_dist.total_cmp(&1.0) {
+                Ordering::Less=>Shot::Bullseye,
+                Ordering::Greater=>Shot::Miss,
+                _=>Shot::Hit(temp_dist),
+            }
+        );
+    }
 
 
     let mut total = 0;
