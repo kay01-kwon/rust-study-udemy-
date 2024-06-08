@@ -60,16 +60,22 @@ fn main() {
         arrow_coords[i].print_description();
         let temp_dist = arrow_coords[i].distance_from_center();
         shots.push(
-            match temp_dist.total_cmp(&1.0) {
-                Ordering::Less=>Shot::Bullseye,
-                Ordering::Greater=>Shot::Miss,
-                _=>Shot::Hit(temp_dist),
+            match temp_dist{
+                d if d < 1.0 => Shot::Bullseye,
+                d if d >= 1.0 && d <= 5.0 => Shot::Hit(d),
+                _ => Shot::Miss,
             }
         );
     }
 
 
     let mut total = 0;
+    
+    for num in shots
+    {
+        total += num.points();
+    }
+
     // 3. Finally, loop through each shot in shots and add its points to total
 
     println!("Final point total is: {}", total);
