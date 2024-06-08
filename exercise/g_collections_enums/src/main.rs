@@ -6,41 +6,39 @@ use std::cmp::Ordering;
 
 use rand::seq;
 
+mod modules;
+use crate::modules::{Coord, Shot, get_arrow_coords};
+
 // Someone is shooting arrows at a target.  We need to classify the shots.
 //
 // 1a. Create an enum called `Shot` with variants:
 // - `Bullseye`
 // - `Hit`, containing the distance from the center (an f64)
 // - `Miss`
-enum Shot{
-    Bullseye,
-    Hit(f64),
-    Miss,
-}
+// enum Shot{
+//     Bullseye,
+//     Hit(f64),
+//     Miss,
+// }
 // You will need to complete 1b as well before you will be able to run this program successfully.
 
-impl Shot {
-    // Here is a method for the `Shot` enum you just defined.
-    fn points(self) -> i32 {
-        // 1b. Implement this method to convert a Shot into points
-        // - return 5 points if `self` is a `Shot::Bullseye`
-        // - return 2 points if `self` is a `Shot::Hit(x)` where x < 3.0
-        // - return 1 point if `self` is a `Shot::Hit(x)` where x >= 3.0
-        // - return 0 points if `self` is a Miss
-        match self {
-            Self::Bullseye => 5,
-            Self::Hit(num)=> {
-                if num < 3.0{
-                    2
-                } else
-                {
-                    1
-                }
-            },
-            Self::Miss => 0,
-        }
-    }
-}
+// impl Shot {
+//     // Here is a method for the `Shot` enum you just defined.
+//     fn points(self) -> i32 {
+//         // 1b. Implement this method to convert a Shot into points
+//         // - return 5 points if `self` is a `Shot::Bullseye`
+//         // - return 2 points if `self` is a `Shot::Hit(x)` where x < 3.0
+//         // - return 1 point if `self` is a `Shot::Hit(x)` where x >= 3.0
+//         // - return 0 points if `self` is a Miss
+//         match self 
+//         {
+//             Self::Bullseye => 5,
+//             Self::Hit(x) if x < 3.0 => 2,
+//             Self::Hit(x) => 1,
+//             Self::Miss => 0,
+//         }
+//     }
+// }
 
 fn main() {
     // Simulate shooting a bunch of arrows and gathering their coordinates on the target.
@@ -56,24 +54,36 @@ fn main() {
     //      - Between 1.0 and 5.0 -- `Shot::Hit(value)`
     //      - Greater than 5.0 -- `Shot::Miss`
 
-    for i in 0..5{
-        arrow_coords[i].print_description();
-        let temp_dist = arrow_coords[i].distance_from_center();
-        shots.push(
-            match temp_dist{
+    // for i in 0..5{
+    //     arrow_coords[i].print_description();
+    //     let temp_dist = arrow_coords[i].distance_from_center();
+    //     shots.push(
+    //         match temp_dist{
+    //             d if d < 1.0 => Shot::Bullseye,
+    //             d if d >= 1.0 && d <= 5.0 => Shot::Hit(d),
+    //             _ => Shot::Miss,
+    //         }
+    //     );
+    // }
+
+        for coord in arrow_coords
+        {
+            coord.print_description();
+            let shot = match coord.distance_from_center() 
+            {
                 d if d < 1.0 => Shot::Bullseye,
-                d if d >= 1.0 && d <= 5.0 => Shot::Hit(d),
-                _ => Shot::Miss,
-            }
-        );
-    }
+                d if d < 5.0 => Shot::Hit(d),
+                _=>Shot::Miss,                
+            };
+            shots.push(shot);
+        }
 
 
     let mut total = 0;
     
-    for num in shots
+    for shot in shots
     {
-        total += num.points();
+        total += shot.points();
     }
 
     // 3. Finally, loop through each shot in shots and add its points to total
@@ -82,35 +92,35 @@ fn main() {
 }
 
 // A coordinate of where an Arrow hit
-#[derive(Debug)]
-struct Coord {
-    x: f64,
-    y: f64,
-}
+// #[derive(Debug)]
+// struct Coord {
+//     x: f64,
+//     y: f64,
+// }
 
-impl Coord {
-    fn distance_from_center(&self) -> f64 {
-        (self.x.powf(2.0) + self.y.powf(2.0)).sqrt()
-    }
-    fn print_description(&self) {
-        println!(
-            "coord is {:.1} away, at ({:.1}, {:.1})",
-            self.distance_from_center(),
-            self.x,
-            self.y);
-    }
+// impl Coord {
+//     fn distance_from_center(&self) -> f64 {
+//         (self.x.powf(2.0) + self.y.powf(2.0)).sqrt()
+//     }
+//     fn print_description(&self) {
+//         println!(
+//             "coord is {:.1} away, at ({:.1}, {:.1})",
+//             self.distance_from_center(),
+//             self.x,
+//             self.y);
+//     }
 
-}
+// }
 
-// Generate some random coordinates
-fn get_arrow_coords(num: u32) -> Vec<Coord> {
-    let mut coords: Vec<Coord> = Vec::new();
-    for _ in 0..num {
-        let coord = Coord {
-            x: (rand::random::<f64>() - 0.5) * 12.0,
-            y: (rand::random::<f64>() - 0.5) * 12.0,
-        };
-        coords.push(coord);
-    }
-    coords
-}
+// // Generate some random coordinates
+// fn get_arrow_coords(num: u32) -> Vec<Coord> {
+//     let mut coords: Vec<Coord> = Vec::new();
+//     for _ in 0..num {
+//         let coord = Coord {
+//             x: (rand::random::<f64>() - 0.5) * 12.0,
+//             y: (rand::random::<f64>() - 0.5) * 12.0,
+//         };
+//         coords.push(coord);
+//     }
+//     coords
+// }
