@@ -27,7 +27,7 @@
 //     }
 // }
 mod modules;
-use crate::modules::{Carrot, Grapes, Bite};
+use crate::modules::{Carrot, Grapes, Bite, bunny_nibbles};
 
 
 fn main() {
@@ -50,8 +50,8 @@ fn main() {
     // Hint: Define the generic type between the function name and open paren:
     //       fn function_name<T: Bite>(...)
     //
-    //bunny_nibbles(&mut carrot);
-    //println!("Bunny nibbles for awhile: {:?}", carrot);
+    bunny_nibbles(&mut carrot);
+    println!("Bunny nibbles for awhile: {:?}", carrot);
 }
 
 // #[derive(Debug)] // This enables using the debugging format string "{:?}"
