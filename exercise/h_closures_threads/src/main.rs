@@ -17,7 +17,7 @@ fn expensive_sum(v: Vec<i32>) -> i32 {
     // will need to dereference it each time you use it in the expression like this: `*x`
     v.iter()
         .filter(|&x|{(*x)%2 == 0})
-        .map(|&x|{x.pow(2)})
+        .map(|x|{x.pow(2)})
         .sum()
 }
 
@@ -45,8 +45,8 @@ fn main() {
     // to exit with a `Result<i32, Err>`.  Get the i32 out of the result and store it in a `sum`
     // variable.  Uncomment the println.  If you did 1a and 1b correctly, the sum should be 20.
     //
-    //let sum =
-    //println!("The child thread's expensive sum is {}", sum);
+    let sum = handle;
+    println!("The child thread's expensive sum is {}", sum);
 
     // Time for some fun with threads and channels!  Though there is a primitive type of channel
     // in the std::sync::mpsc module, I recommend always using channels from the crossbeam crate,
@@ -56,7 +56,6 @@ fn main() {
     // flow of execution works.  Once you understand it, alter the values passed to the `pause_ms()`
     // calls so that both the "Thread B" outputs occur before the "Thread A" outputs.
 
-    /*
     let (tx, rx) = channel::unbounded();
     // Cloning a channel makes another variable connected to that end of the channel so that you can
     // send it to another thread.
@@ -89,7 +88,6 @@ fn main() {
     // Join the child threads for good hygiene.
     handle_a.join().unwrap();
     handle_b.join().unwrap();
-    */
 
     // Challenge: Make two child threads and give them each a receiving end to a channel.  From the
     // main thread loop through several values and print each out and then send it to the channel.
